@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Test JSON from Server - Array Literal as Argument of Function</title>
+    <style type="text/css">
+        .tabela {
+          border: 1px solid #ccc;
+        }
+
+        .tabela td {
+          padding: 10px;
+        }
+
+        .tabela tr:nth-child(odd) {
+          background: #ccc;
+        }
+
+        body, .tabela a {
+          color: #333;
+          font-family: "Trebutchet", Helvetica, sans-serif;
+          font-size: 1rem;
+        }
+
+        #id01 {
+          display: none;
+        }
+
+        #id02 {
+          margin: 20px 0;
+        }
+
+        #button1 {
+          cursor: pointer;
+          font-size: 2rem;
+          margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+	<input type="button" value="Show List" id="button1" name="listagem" onclick="myFunction(myArr)">
+    <div id="id01"></div>
+    <div id="id02">Click button above to see list of tutorials.</div>
+
+<script>
+
+	function myFunction(arr) {
+        var out = "<table class='tabela'>";
+      var i;
+      for (i = 0; i < arr.length; i++) {
+        out += '<tr><td><a href="' + arr[i].url + '">' + arr[i].display + '</a></td></tr>';
+      }
+      out += "</table>";
+
+      var content = document.getElementById("id01");
+      content.innerHTML = out;
+
+      var myButton = document.getElementById("button1");
+
+      if (content.style.display == "inline") {
+        content.style.display = "none";
+        myButton.value = "Show List";
+      } else {
+        content.style.display = "inline";
+        myButton.value = "Hide List";
+      }
+
+}
+</script>
+<script src="myTutorials1.js"></script><!--This file will have an array literal as argument of the function call - - -> myFunction([...array literal...]);
+
+</body>
+</html>

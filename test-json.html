@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Test JSON from Server</title>
+</head>
+
+<body>
+	<div id="id01"></div>
+
+<script>
+	//1st Step: Create VAR that HTTPRequest() external file
+	var xmlhttp = new XMLHttpRequest();
+	var link = "myTutorials.txt";
+
+	//2nd Step: When ready create VAR that calls JSON .responseText property on above HTTPRequest() VAR
+	xmlhttp.onreadystatechange = function() {   
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {       
+	  var myArr = JSON.parse(xmlhttp.responseText);   
+
+	//3rd Step: Call function w/ JSON .responseText property VAR as argument
+	  myFunction(myArr);   
+	}
+	};
+
+	//4th Step: open and send external file w/ "GET" 
+	xmlhttp.open("GET", link, true);
+	xmlhttp.send();
+
+	//5th Step: Create function that builds the content of external file on this page. It will iterate through external file and build structure on this page from its content.
+	function myFunction(arr) {   
+	var out = ""; //needs to have value of "", otherwise it prints "undefined" on the page.   
+	var i;   
+	for (i = 0; i < arr.length; i++) {//loops through objects of external file
+		if(arr[i].url){//create as many conditions as you want to match all cases and to use only one HTTP Request   
+	  		out += '<a target="_blank" title="' + arr[i].display + '" href="' + arr[i].url + '">' + arr[i].display + '</a><br>';
+	  	} else {//if no "url" property value defined, just show the "display" property
+  			out += '<p>' + arr[i].display + '</p>';
+  		}       
+	}  
+
+	//6th Step: Display the content of external file on this page 
+	document.getElementById("id01").innerHTML = out;
+	}
+</script>
+</body>
+</html>
